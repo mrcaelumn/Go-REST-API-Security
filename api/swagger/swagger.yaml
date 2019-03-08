@@ -1,0 +1,181 @@
+consumes:
+- application/json
+definitions:
+  Gorestsecurity-Error:
+    description: Gorestsecurity-Error media type (default view)
+    example:
+      code: UNAUTHORIZED
+      msg: Unauthorized access
+    properties:
+      code:
+        description: Message ID
+        example: UNAUTHORIZED
+        type: string
+      msg:
+        description: Localized message
+        example: Unauthorized access
+        type: string
+    required:
+    - code
+    - msg
+    title: 'Mediatype identifier: application/vnd.gorestsecurity-error+json; view=default'
+    type: object
+  Gorestsecurity-Version:
+    description: Gorestsecurity-Version media type (default view)
+    example:
+      git: "000000"
+      version: "1.0"
+    properties:
+      git:
+        description: Git commit hash
+        example: "000000"
+        type: string
+      version:
+        description: Application version
+        example: "1.0"
+        type: string
+    required:
+    - version
+    title: 'Mediatype identifier: application/vnd.gorestsecurity-version+json; view=default'
+    type: object
+info:
+  description: API for go-rest-security
+  title: go-rest-security APIs
+  version: "1.0"
+paths:
+  /gorestsecurity/getToken:
+    get:
+      operationId: Action#getToken
+      produces:
+      - application/json
+      - application/vnd.gorestsecurity-error+json
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest is returned if input object is missing required
+            attributes or their values are out of range.
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "401":
+          description: Unauthorized is returned when user request does not contain
+            authentication token or authentication is invalid. The response must include
+            a valid "WWW-Authenticate" header.
+          headers:
+            WWW-Authenticate:
+              default: Bearer
+              description: https://tools.ietf.org/html/rfc7235
+              type: string
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "403":
+          description: Forbidden is returned when user is not authorized to perform
+            an action.
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+      schemes:
+      - https
+      summary: Get data
+      tags:
+      - Action
+  /gorestsecurity/request:
+    get:
+      operationId: Action#request
+      produces:
+      - application/json
+      - application/vnd.gorestsecurity-error+json
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: No Content
+        "400":
+          description: BadRequest is returned if input object is missing required
+            attributes or their values are out of range.
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "401":
+          description: Unauthorized is returned when user request does not contain
+            authentication token or authentication is invalid. The response must include
+            a valid "WWW-Authenticate" header.
+          headers:
+            WWW-Authenticate:
+              default: Bearer
+              description: https://tools.ietf.org/html/rfc7235
+              type: string
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "403":
+          description: Forbidden is returned when user is not authorized to perform
+            an action.
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Error'
+      schemes:
+      - https
+      summary: Get data
+      tags:
+      - Action
+  /gorestsecurity/version:
+    get:
+      operationId: version#version
+      produces:
+      - application/vnd.gorestsecurity-version+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Gorestsecurity-Version'
+      schemes:
+      - https
+      summary: Return application's version and commit hash
+      tags:
+      - version
+  /swagger.json:
+    get:
+      operationId: swagger#/swagger.json
+      responses:
+        "200":
+          description: File downloaded
+          schema:
+            type: file
+      schemes:
+      - https
+      summary: Download api/swagger/swagger.json
+produces:
+- application/json
+responses:
+  BadRequest:
+    description: BadRequest is returned if input object is missing required attributes
+      or their values are out of range.
+    schema:
+      $ref: '#/definitions/Gorestsecurity-Error'
+  Forbidden:
+    description: Forbidden is returned when user is not authorized to perform an action.
+    schema:
+      $ref: '#/definitions/Gorestsecurity-Error'
+  NoContent:
+    description: No Content
+  Unauthorized:
+    description: Unauthorized is returned when user request does not contain authentication
+      token or authentication is invalid. The response must include a valid "WWW-Authenticate"
+      header.
+    headers:
+      WWW-Authenticate:
+        default: Bearer
+        description: https://tools.ietf.org/html/rfc7235
+        type: string
+    schema:
+      $ref: '#/definitions/Gorestsecurity-Error'
+schemes:
+- https
+swagger: "2.0"
