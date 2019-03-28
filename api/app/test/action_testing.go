@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=github.com/mrcaelumn/Go-REST-API-Security/api/design
-// --out=$(GOPATH)/src/github.com/mrcaelumn/Go-REST-API-Security/api
+// --design=github.com/mrcaelumn/go-rest-api-security/api/design
+// --out=$(GOPATH)/src/github.com/mrcaelumn/go-rest-api-security/api
 // --version=v1.3.1
 
 package test
@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
+	"github.com/mrcaelumn/go-rest-api-security/api/app"
 	"io"
 	"log"
 	"net/http"

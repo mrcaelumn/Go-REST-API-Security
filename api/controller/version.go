@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/goadesign/goa"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
-	"github.com/mrcaelumn/Go-REST-API-Security/version"
+	"github.com/mrcaelumn/go-rest-api-security/api/app"
+	"github.com/mrcaelumn/go-rest-api-security/version"
 )
 
 // VersionController implements the version resource.

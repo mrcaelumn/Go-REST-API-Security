@@ -8,8 +8,8 @@ import (
 	jwtgo "github.com/dgrijalva/jwt-go"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/middleware/security/jwt"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/custommiddleware"
+	"github.com/mrcaelumn/go-rest-api-security/api/app"
+	"github.com/mrcaelumn/go-rest-api-security/api/custommiddleware"
 )
 
 // ActionController implements the Action resource.
@@ -70,9 +70,9 @@ func (c *ActionController) Request(ctx *app.RequestActionContext) error {
 		return fmt.Errorf("JWT token is missing from context") // internal error
 	}
 	claims := token.Claims.(jwtgo.MapClaims)
-
+	fmt.Println(claims)
 	// Use the claims to authorize
-	subject := claims["sub"]
+	subject := claims["user"]
 	if subject != "subject" {
 		// A real app would probably use an "Unauthorized" response here
 

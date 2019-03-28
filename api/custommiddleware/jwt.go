@@ -11,7 +11,7 @@ import (
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/middleware/security/jwt"
 	"github.com/gofrs/uuid"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
+	"github.com/mrcaelumn/go-rest-api-security/api/app"
 )
 
 // NewJWTMiddleware creates a middleware that checks for the presence of a JWT Authorization header

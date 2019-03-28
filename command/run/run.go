@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/inconshreveable/log15"
-	"github.com/mrcaelumn/Go-REST-API-Security/api"
+	"github.com/mrcaelumn/go-rest-api-security/api"
 	"github.com/urfave/cli"
 )
 

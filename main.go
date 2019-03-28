@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/inconshreveable/log15"
-	"github.com/mrcaelumn/Go-REST-API-Security/command/run"
-	"github.com/mrcaelumn/Go-REST-API-Security/version"
+	"github.com/mrcaelumn/go-rest-api-security/command/run"
+	"github.com/mrcaelumn/go-rest-api-security/version"
 	"github.com/urfave/cli"
 )
 
@@ -13,8 +13,8 @@ var logHandler log15.Handler
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "Go-REST-API-Security"
-	app.Usage = "Go-REST-API-Security server component"
+	app.Name = "go-rest-api-security"
+	app.Usage = "go-rest-api-security server component"
 	app.Copyright = "(c) 2019 mrcaelumn"
 	app.Version = version.Version + " (" + version.GitCommit + ")"
 	app.Flags = []cli.Flag{

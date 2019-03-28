@@ -193,17 +193,14 @@ responses:
 schemes:
 - https
 securityDefinitions:
-  SigninBasicAuth:
-    type: basic
   basic_auth:
     type: basic
   jwt:
-    description: |2-
-
+    description: |-
+      Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint. Supports scopes "api:read" and "api:write".
 
       **Security Scopes**:
-        * `api:access`: API access
-    in: header
-    name: Authorization
+        * `api:read`: Read-only access
+        * `api:write`: Read and write access
     type: apiKey
 swagger: "2.0"

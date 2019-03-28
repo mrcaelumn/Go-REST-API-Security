@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=github.com/mrcaelumn/Go-REST-API-Security/api/design
-// --out=$(GOPATH)/src/github.com/mrcaelumn/Go-REST-API-Security/api
+// --design=github.com/mrcaelumn/go-rest-api-security/api/design
+// --out=$(GOPATH)/src/github.com/mrcaelumn/go-rest-api-security/api
 // --version=v1.3.1
 
 package app
@@ -40,24 +40,15 @@ func UseJWTMiddleware(service *goa.Service, middleware goa.Middleware) {
 // NewJWTSecurity creates a jwt security definition.
 func NewJWTSecurity() *goa.JWTSecurity {
 	def := goa.JWTSecurity{
-		In:       goa.LocHeader,
-		Name:     "Authorization",
+		In:       goa.LocQuery,
+		Name:     "",
 		TokenURL: "",
 		Scopes: map[string]string{
-			"api:access": "API access",
+			"api:read":  "Read-only access",
+			"api:write": "Read and write access",
 		},
 	}
-	return &def
-}
-
-// UseSigninBasicAuthMiddleware mounts the SigninBasicAuth auth middleware onto the service.
-func UseSigninBasicAuthMiddleware(service *goa.Service, middleware goa.Middleware) {
-	service.Context = context.WithValue(service.Context, authMiddlewareKey("SigninBasicAuth"), middleware)
-}
-
-// NewSigninBasicAuthSecurity creates a SigninBasicAuth security definition.
-func NewSigninBasicAuthSecurity() *goa.BasicAuthSecurity {
-	def := goa.BasicAuthSecurity{}
+	def.Description = "Secures endpoint by requiring a valid JWT token retrieved via the signin endpoint. Supports scopes \"api:read\" and \"api:write\"."
 	return &def
 }
 

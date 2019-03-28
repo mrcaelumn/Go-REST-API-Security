@@ -1,4 +1,4 @@
-//go:generate goagen bootstrap -d github.com/mrcaelumn/Go-REST-API-Security/api/design
+//go:generate goagen bootstrap -d github.com/mrcaelumn/go-rest-api-security/api/design
 
 package api
 
@@ -10,11 +10,12 @@ import (
 	"time"
 
 	"github.com/goadesign/goa"
+	"github.com/goadesign/goa/logging/log15"
 	"github.com/goadesign/goa/middleware"
 	"github.com/inconshreveable/log15"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/controller"
-	"github.com/mrcaelumn/Go-REST-API-Security/api/custommiddleware"
+	"github.com/mrcaelumn/go-rest-api-security/api/app"
+	"github.com/mrcaelumn/go-rest-api-security/api/controller"
+	"github.com/mrcaelumn/go-rest-api-security/api/custommiddleware"
 	"github.com/tylerb/graceful"
 )
 
@@ -28,6 +29,7 @@ func Run(ctx context.Context, listener net.Listener, log log15.Logger) error {
 	service.Use(middleware.LogRequest(true))
 	service.Use(middleware.ErrorHandler(service, true))
 	service.Use(middleware.Recover())
+	service.WithLogger(goalog15.New(log))
 
 	// Mount security middlewares
 	jwtMiddleware, err := custommiddleware.NewJWTMiddleware()

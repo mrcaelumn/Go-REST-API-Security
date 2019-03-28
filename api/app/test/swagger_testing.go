@@ -4,8 +4,8 @@
 //
 // Command:
 // $ goagen
-// --design=github.com/mrcaelumn/Go-REST-API-Security/api/design
-// --out=$(GOPATH)/src/github.com/mrcaelumn/Go-REST-API-Security/api
+// --design=github.com/mrcaelumn/go-rest-api-security/api/design
+// --out=$(GOPATH)/src/github.com/mrcaelumn/go-rest-api-security/api
 // --version=v1.3.1
 
 package test
