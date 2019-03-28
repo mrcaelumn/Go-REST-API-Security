@@ -6,6 +6,7 @@ import (
 	"context"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/goadesign/goa"
@@ -13,9 +14,11 @@ import (
 	"github.com/inconshreveable/log15"
 	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
 	"github.com/mrcaelumn/Go-REST-API-Security/api/controller"
+	"github.com/mrcaelumn/Go-REST-API-Security/api/custommiddleware"
 	"github.com/tylerb/graceful"
 )
 
+//Run This Apis
 func Run(ctx context.Context, listener net.Listener, log log15.Logger) error {
 	// Create service
 	service := goa.New("go-rest-security")
@@ -26,8 +29,14 @@ func Run(ctx context.Context, listener net.Listener, log log15.Logger) error {
 	service.Use(middleware.ErrorHandler(service, true))
 	service.Use(middleware.Recover())
 
+	// Mount security middlewares
+	jwtMiddleware, err := custommiddleware.NewJWTMiddleware()
+	exitOnFailure(err)
+	app.UseBasicAuthMiddleware(service, custommiddleware.NewBasicAuthMiddleware())
+	app.UseJWTMiddleware(service, jwtMiddleware)
 	// Mount "getToken" controller
-	c1 := controller.NewActionController(service)
+	c1, er := controller.NewActionController(service)
+	exitOnFailure(er)
 	app.MountActionController(service, c1)
 	// Mount "swagger" controller
 	c2 := controller.NewSwaggerController(service)
@@ -36,7 +45,6 @@ func Run(ctx context.Context, listener net.Listener, log log15.Logger) error {
 	c3 := controller.NewVersionController(service)
 	app.MountVersionController(service, c3)
 
-	var err error
 	// Start service
 	server := &graceful.Server{
 		NoSignalHandling: true,
@@ -63,4 +71,13 @@ func Run(ctx context.Context, listener net.Listener, log log15.Logger) error {
 	}
 
 	return err
+}
+
+// exitOnFailure prints a fatal error message and exits the process with status 1.
+func exitOnFailure(err error) {
+	if err == nil {
+		return
+	}
+	log15.Error("[CRIT]: " + err.Error())
+	os.Exit(1)
 }

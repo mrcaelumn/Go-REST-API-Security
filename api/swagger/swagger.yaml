@@ -45,15 +45,17 @@ info:
 paths:
   /gorestsecurity/getToken:
     get:
+      description: Creates a valid JWT
       operationId: Action#getToken
       produces:
-      - application/json
       - application/vnd.gorestsecurity-error+json
       responses:
-        "200":
-          description: OK
         "204":
           description: No Content
+          headers:
+            Authorization:
+              description: Generated JWT
+              type: string
         "400":
           description: BadRequest is returned if input object is missing required
             attributes or their values are out of range.
@@ -81,11 +83,18 @@ paths:
             $ref: '#/definitions/Gorestsecurity-Error'
       schemes:
       - https
-      summary: Get data
+      security:
+      - basic_auth: []
+      summary: Creates a valid JWT
       tags:
       - Action
   /gorestsecurity/request:
     get:
+      description: |-
+        This action is secured with the jwt scheme
+
+        Required security scopes:
+          * `api:access`
       operationId: Action#request
       produces:
       - application/json
@@ -122,6 +131,9 @@ paths:
             $ref: '#/definitions/Gorestsecurity-Error'
       schemes:
       - https
+      security:
+      - jwt:
+        - api:access
       summary: Get data
       tags:
       - Action
@@ -150,6 +162,8 @@ paths:
             type: file
       schemes:
       - https
+      security:
+      - basic_auth: []
       summary: Download api/swagger/swagger.json
 produces:
 - application/json
@@ -178,4 +192,18 @@ responses:
       $ref: '#/definitions/Gorestsecurity-Error'
 schemes:
 - https
+securityDefinitions:
+  SigninBasicAuth:
+    type: basic
+  basic_auth:
+    type: basic
+  jwt:
+    description: |2-
+
+
+      **Security Scopes**:
+        * `api:access`: API access
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

@@ -7,7 +7,7 @@ import (
 
 // swagger
 var _ = Resource("swagger", func() {
-	NoSecurity()
+	Security(BasicAuth)
 	Origin("*", func() {
 		Methods("GET")
 	})
@@ -35,18 +35,34 @@ var _ = Resource("version", func() {
 })
 
 var _ = Resource("Action", func() {
+
+	Security(JWTAuth, func() { // Use JWT to auth requests to this endpoint
+		Scope("api:access") // Enforce presence of "api" scope in JWT claims.
+	})
+
 	Action("getToken", func() {
+		Description("Creates a valid JWT")
 		Routing(GET("/getToken"))
-		Response(OK, "application/json")
-		Response(NoContent)
+		Security(BasicAuth)
+
+		Response(NoContent, func() {
+			Headers(func() {
+				Header("Authorization", String, "Generated JWT")
+			})
+		})
+
 		Response(Unauthorized)
 		Response(Forbidden)
 		Response(BadRequest, CustomeErrorMedia)
 		Response(InternalServerError, CustomeErrorMedia)
-		Metadata("swagger:summary", "Get data")
+		Metadata("swagger:summary", "Creates a valid JWT")
 	})
+
 	Action("request", func() {
 		Routing(GET("/request"))
+
+		Description("This action is secured with the jwt scheme")
+
 		Response(OK, "application/json")
 		Response(NoContent)
 		Response(Unauthorized)

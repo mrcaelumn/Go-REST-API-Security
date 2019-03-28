@@ -21,7 +21,7 @@ var Command = cli.Command{
 			Name:   "socket, s",
 			Usage:  "REST API `socket` either as '[tcp://]<address>:<port>' or 'unix://<path>' string",
 			EnvVar: "GORESTSECURITY_SOCKET",
-			Value:  "tcp://0.0.0.0:8080",
+			Value:  "tcp://0.0.0.0:8088",
 		},
 	},
 	Action: func(c *cli.Context) error {

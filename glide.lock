@@ -1,0 +1,56 @@
+hash: 476eb684664e0fd03c42a87ef6b793d63f36b880bb214a123c1ca79ab8e2ae77
+updated: 2019-03-27T16:46:14.094932+07:00
+imports:
+- name: github.com/armon/go-metrics
+  version: f0300d1749da6fa982027e449ec0c7a145510c3c
+- name: github.com/dgrijalva/jwt-go
+  version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
+- name: github.com/dimfeld/httppath
+  version: ee938bf735983d53694d79138ad9820efff94c92
+- name: github.com/dimfeld/httptreemux
+  version: a53c8f73d4b7d82c30b7e5ab6aa155b981c42fb5
+- name: github.com/go-stack/stack
+  version: 2fee6af1a9795aafbe0253a0cfbdf668e1fb8a9a
+- name: github.com/goadesign/goa
+  version: d96a9e2548f5803f6bbb0a5ffb0bee24863cd19b
+  subpackages:
+  - client
+  - cors
+  - design
+  - design/apidsl
+  - dslengine
+  - goatest
+  - middleware
+  - middleware/security/jwt
+  - uuid
+- name: github.com/gofrs/uuid
+  version: 2593f3d8aa45b432942fe24758a279312d0f8719
+- name: github.com/hashicorp/go-immutable-radix
+  version: 27df80928bb34bb1b0d6d0e01b9e679902e7a6b5
+- name: github.com/hashicorp/golang-lru
+  version: 20f1fb78b0740ba8c3cb143a61e86ba5c8669768
+  subpackages:
+  - simplelru
+- name: github.com/inconshreveable/log15
+  version: 67afb5ed74ec82fd7ac8f49d27c509ac6f991970
+- name: github.com/manveru/faker
+  version: 9fbc68a78c4dbc7914e1a23f88f126bea4383b97
+- name: github.com/mattn/go-colorable
+  version: 3a70a971f94a22f2fa562ffcc7a0eb45f5daf045
+- name: github.com/mattn/go-isatty
+  version: c2a7a6ca930a4cd0bc33a3f298eb71960732a3a7
+- name: github.com/tylerb/graceful
+  version: 4654dfbb6ad53cb5e27f37d99b02e16c1872fbbb
+- name: github.com/urfave/cli
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
+- name: github.com/zach-klippenstein/goregen
+  version: 795b5e3961ea1912fde60af417ad85e86acc0d6a
+- name: golang.org/x/net
+  version: 640f4622ab692b87c2f3a94265e6f579fe38263d
+  subpackages:
+  - websocket
+- name: golang.org/x/sys
+  version: 78d5f264b493f125018180c204871ecf58a2dce1
+  subpackages:
+  - unix
+testImports: []

@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/goadesign/goa"
 	"github.com/mrcaelumn/Go-REST-API-Security/api/app"
+	"github.com/mrcaelumn/Go-REST-API-Security/version"
 )
 
 // VersionController implements the version resource.
@@ -21,7 +22,10 @@ func (c *VersionController) Version(ctx *app.VersionVersionContext) error {
 
 	// Put your logic here
 
-	res := &app.GorestsecurityVersion{}
+	res := &app.GorestsecurityVersion{
+		Version: version.Version,
+		Git:     &version.GitCommit,
+	}
 	return ctx.OK(res)
 	// VersionController_Version: end_implement
 }
